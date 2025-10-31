@@ -5,7 +5,7 @@
 Blink demo taken from https://github.com/raspberrypi/pico-examples 
 and make it compile on its own.
 
-Here is a guide which walks you through setting up the Raspberry Pi Pico SDK on a Linux system without any GUI such as vscode.
+Here is a guide which walks you through setting up the Raspberry Pi Pico SDK on a Linux system.
 
 ## Step 1: Install Required Dependencies
 Open a terminal and install the necessary tools:
@@ -15,7 +15,7 @@ sudo apt update && sudo apt install -y cmake gcc-arm-none-eabi libnewlib-arm-non
 ```
 
 ## Step 2: Clone the Pico SDK
-Navigate to a workspace directory and clone the official Raspberry Pi Pico SDK:
+Create a `pico` directory and clone the official Raspberry Pi Pico SDK:
 
 ```bash
 mkdir -p ~/pico && cd ~/pico
