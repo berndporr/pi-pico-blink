@@ -3,7 +3,8 @@
 ![alt tag](setup.jpg)
 
 Blink demo taken from https://github.com/raspberrypi/pico-examples 
-and make it compile on its own.
+and combined it with the timer example not to tempt anybody writing loops
+with sleep commands in it!
 
 Here is a guide which walks you through setting up the Raspberry Pi Pico SDK on a Linux system.
 

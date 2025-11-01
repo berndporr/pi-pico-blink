@@ -11,7 +11,7 @@
 const int n = 15;
 
 // Blinking rate
-const int LED_delay_ms = 1000;
+const int LED_delay_ms = 500;
 
 // Perform initialisation
 void pico_led_init(void) {
@@ -37,7 +37,11 @@ bool repeating_timer_callback(struct repeating_timer *t) {
 int main() {
     pico_led_init();
     struct repeating_timer timer;
-    add_repeating_timer_ms(-500, repeating_timer_callback, NULL, &timer);
+    add_repeating_timer_ms(-LED_delay_ms,
+			   repeating_timer_callback,
+			   NULL,
+			   &timer);
+    // sleep forever. All done by the timer.
     while (true) {
 	sleep_ms(0xffffffff);
     }
