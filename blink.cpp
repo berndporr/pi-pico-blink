@@ -7,39 +7,47 @@
 
 #include "pico/stdlib.h"
 
-// GPIO pin
-const int n = 15;
-
 // Blinking rate
 const int LED_delay_ms = 500;
 
-// Perform initialisation
-void pico_led_init(void) {
-    gpio_init(n);
-    gpio_set_dir(n, GPIO_OUT);
-}
+class LED {
+public:
+    LED(int gpio = 15) : n(gpio) {}
+    
+    // Perform initialisation
+    void init() {
+	gpio_init(n);
+	gpio_set_dir(n, GPIO_OUT);
+	gpio_put(n, s);
+    }
+    
+    // Turn the led on or off
+    void toggle() {
+	s = !s;
+	gpio_put(n, s);
+    }
+    
+private:
+    // LED state
+    bool s = true;
+    
+    // GPIO pin
+    const int n;
+};
 
-// Turn the led on or off
-void pico_set_led(bool led_on) {
-    gpio_put(n, led_on);
-}
-
-// global state of the LED but should be done via the
-// user data of the repeating timer.
-bool led_state = false;
 
 bool repeating_timer_callback(struct repeating_timer *t) {
-    led_state = !led_state;
-    pico_set_led(led_state);
+    ((LED*)(t->user_data))->toggle();
     return true;
 }
 
 int main() {
-    pico_led_init();
+    LED led;
+    led.init();
     struct repeating_timer timer;
     add_repeating_timer_ms(-LED_delay_ms,
 			   repeating_timer_callback,
-			   NULL,
+			   &led,
 			   &timer);
     // sleep forever. All done by the timer.
     while (true) {
